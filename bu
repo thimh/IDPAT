@@ -1,0 +1,25 @@
+#4 February 2014
+#Week 2
+#42IN07SOl
+#Edwin Hattink 
+
+IFS=$'\n'
+
+for file in `ls $1` 
+do
+	if [ -n "$1" ]
+	then
+		VAR=$1/$file
+	else
+		VAR=$file
+	fi
+	if [ -f "$VAR" ]
+	then
+		echo "F $VAR" 
+	fi
+	if [ -d "$VAR" ]
+	then
+		echo "D $VAR"
+		$0 $VAR
+	fi
+done

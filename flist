@@ -1,0 +1,24 @@
+#4 February 2014
+#Week 2
+#42IN07SOl
+#Edwin Hattink 
+
+echo `date` >> ~/Documents/flist.log
+# dit command print de datum uit in flist.log. Door >> wordt het de laatste regel #van een bestaand bestand.
+
+if [ -z "$1" ]; #Is de parameter leeg?
+then #Zo ja
+find ./ | grep -v "flist\.out" | grep -iv "\.bak"$ > flist.out #Voer deze regel uit
+else #Anders
+find $1 | grep -v "flist\.out" | grep -iv "\.bak"$ > flist.out #Voer deze regel uit
+fi #Einde van if
+
+echo Script finished.
+
+#find ./ | grep -v "flist\.out" | grep -iv "\.bak"$ > flist.out
+#find geeft alle bestanden in de map en alle bestanden in alle subdirectorys.
+#grep filtert er regels uit
+#-v zorgt ervoor dat hij er uitgehaald wordt ipv doorgelaten
+#-i zorgt ervoor dat hij niet op hoofdletters of kleine letters let.
+#> zet de output in een bestand.
+

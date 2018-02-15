@@ -1,0 +1,18 @@
+#4 February 2014
+#Week 2
+#42IN07SOl
+#Edwin Hattink 
+
+IFS=$'\n'
+
+for file in `find $1 | sort | grep -v '/\.'` 
+do
+	if [ -f "$file" ]
+	then
+		echo "F $file" 
+	fi
+	if [ -d "$file" ]
+	then
+		echo "D $file"
+	fi
+done

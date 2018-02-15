@@ -1,0 +1,53 @@
+#4 February 2014
+#Week 2
+#42IN07SOl
+#Edwin Hattink	en	Thim Heider
+#2063703	en	2066993
+
+IFS=$'\n'
+
+if [ ! -f ~/.bak.cfg ]; #geen .bak.cfg, stop script.
+then
+	echo "We can't find .bak.cfg in your home directory, the script can't run.";
+	exit;
+fi;
+
+destination=$(cat ~/.bak.cfg); #lees .bak.cfg
+
+if [ ! -n "$destination" ]; #als .bak.cfg leeg is, stop script.
+then
+	echo "The file .bak.cfg is empty, the script can't run.";
+	exit;
+fi;
+
+if [ ! -d $1 ] #als de directory in de parameter bestaat
+then
+	echo "The directory you try to back up doesn't exist.";
+	exit;
+fi;	
+	
+if [ -d "$destination" ]; #bestaat bestemmingsmap?
+then
+	answer="y"; #ja
+else
+	echo "We will make a new directory for your backup."; #vraag om een antwoord
+	read -p "Do you want that? (y/n) " answer; #y/n
+fi;
+
+if [ ! $answer = "y" ]; #antwoord is y
+then
+	echo "OK, bye!";
+	exit;
+fi;
+
+destination+="/`date`"; #bestemmingsmap wordt destination + datum en tijd
+echo "DESTINATION: "$destination; #print bestemmingsmap.
+mkdir -p "$destination"; #maak bestemmingsmap
+for file in `find $1 | sort` #voor alle files en directories in de directory
+do
+	echo $file; #print de filenaam + path
+	if [ -f "$file" ]; #als het een bestand is
+	then
+		cp --parents $file $destination; #Copy bestand naar de bestemmingsmap MET behoud van mappenstructuur
+	fi;
+done;
